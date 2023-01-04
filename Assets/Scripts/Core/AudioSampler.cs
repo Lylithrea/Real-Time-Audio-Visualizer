@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Tooling;
 
 
 
@@ -16,17 +17,15 @@ public class AudioSampler : AudioSampleTooling
     // Start is called before the first frame update
     public override void Start()
     {
-        audioSpectrum = new float[samples];
-        _freqBand = new float[bands];
-        _gainBand = new float[samples];
+        Base.audioSpectrum = new float[Tooling.Base.samples];
+        Base._freqBand = new float[Tooling.Base.bands];
         analyzer = GetComponent<Lasp.SpectrumAnalyzer>();
 
     }
 
     private void OnValidate()
     {
-        _freqBand = new float[bands];
-        _gainBand = new float[samples];
+        Base._freqBand = new float[Tooling.Base.bands];
     }
 
     // Update is called once per frame
@@ -35,20 +34,20 @@ public class AudioSampler : AudioSampleTooling
         //AudioListener.GetSpectrumData(audioSpectrum, 0, FFTWindow.Hamming);
         if (isUsingMicrophoneInput)
         {
-            audioSpectrum = analyzer.spectrumArray.ToArray();
+            Base.audioSpectrum = analyzer.spectrumArray.ToArray();
         }
         else
         {
-            audioSpectrum = loopbackAudio.GetAllSpectrumData(strategy);
+            Base.audioSpectrum = loopbackAudio.GetAllSpectrumData(strategy);
         }
 
 
 
 
 
-        if (audioSpectrum != null && audioSpectrum.Length > 0)
+        if (Base.audioSpectrum != null && Base.audioSpectrum.Length > 0)
         {
-            spectrumValue = audioSpectrum[0] * 100;
+            spectrumValue = Base.audioSpectrum[0] * 100;
         }
 
 

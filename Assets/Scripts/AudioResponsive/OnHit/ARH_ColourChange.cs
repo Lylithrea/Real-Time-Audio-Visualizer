@@ -17,7 +17,7 @@ public class ARH_ColourChange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioSampler.onBeat += onBeat;
+        Tooling.Base.onBeat += onBeat;
         mat = GetComponent<MeshRenderer>().material;
     }
 

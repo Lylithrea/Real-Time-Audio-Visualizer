@@ -454,8 +454,8 @@ MonoBehaviour:
       inWeight: 1
       outWeight: 1
     - serializedVersion: 3
-      time: 0.5
-      value: 1
+      time: 0.35370776
+      value: 1.000014
       inSlope: -0.0071078828
       outSlope: -0.0071078828
       tangentMode: 0
@@ -465,8 +465,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.9963074
       value: 0.014152527
-      inSlope: -1.9863647
-      outSlope: -1.9863647
+      inSlope: -1.5341768
+      outSlope: -1.5341768
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -701,8 +701,8 @@ MonoBehaviour:
       inWeight: 1
       outWeight: 1
     - serializedVersion: 3
-      time: 0.5
-      value: 1
+      time: 0.35370776
+      value: 1.000014
       inSlope: -0.0071078828
       outSlope: -0.0071078828
       tangentMode: 0
@@ -712,8 +712,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.9963074
       value: 0.014152527
-      inSlope: -1.9863647
-      outSlope: -1.9863647
+      inSlope: -1.5341768
+      outSlope: -1.5341768
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -856,8 +856,8 @@ MonoBehaviour:
       inWeight: 1
       outWeight: 1
     - serializedVersion: 3
-      time: 0.5
-      value: 1
+      time: 0.35370776
+      value: 1.000014
       inSlope: -0.0071078828
       outSlope: -0.0071078828
       tangentMode: 0
@@ -867,8 +867,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.9963074
       value: 0.014152527
-      inSlope: -1.9863647
-      outSlope: -1.9863647
+      inSlope: -1.5341768
+      outSlope: -1.5341768
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8d96294529478449b3792a9e1779ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpectrumSize: 1024
+  SpectrumSize: 2048
   ScalingStrategy: 0
   SpectrumData: []
   PostScaledSpectrumData: []
@@ -1054,10 +1054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b4c5ba81044084196e60f7c9a31500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  samples: 1024
-  maxVolume: 50
-  bias: 50
-  volTimer: 0
   loopbackAudio: {fileID: 1940177030}
   strategy: 0
   isUsingMicrophoneInput: 0

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace Tooling
 {
-   public class AlgorithmHelper : MonoBehaviour
+    public static class AlgorithmHelper
     {
+
         public static float EaseSimple(float x, float effectiveness)
         {
             return (Mathf.Pow(x, 2 * (3 - 2 * x))) * effectiveness;
@@ -13,7 +15,7 @@ namespace Tooling
 
         public static float Exp(float x, float effectiveness)
         {
-            float value = Mathf.Exp( x *  Mathf.Abs(effectiveness));
+            float value = Mathf.Exp(x * Mathf.Abs(effectiveness));
             if (effectiveness < 0)
             {
                 value *= -1;
@@ -21,26 +23,27 @@ namespace Tooling
             return value;
         }
 
-        public static Vector3 AxisVector(Tooling.Axis ax)
+        public static Vector3 AxisVector(Axis ax)
         {
             switch (ax)
             {
-                case Tooling.Axis.x:
+                case Axis.x:
                     return new Vector3(1, 0, 0);
-                case Tooling.Axis.y:
+                case Axis.y:
                     return new Vector3(0, 1, 0);
-                case Tooling.Axis.z:
+                case Axis.z:
                     return new Vector3(0, 0, 1);
                 default:
                     Debug.LogWarning("Axis is not supported");
-                    return new Vector3(0,0,0);
+                    return new Vector3(0, 0, 0);
             }
         }
 
 
     }
 
-    
+
+
     public enum Pass
     {
         low,
@@ -71,5 +74,4 @@ namespace Tooling
         y,
         z
     }
-
 }
