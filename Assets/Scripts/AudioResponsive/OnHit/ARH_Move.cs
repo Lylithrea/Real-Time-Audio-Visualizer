@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ARH_Move : MonoBehaviour
 {
-    public AnimationCurve test;
+
+    [SerializeField]public Position position;
     public float speed = 1;
     public float distance = 10;
 
@@ -32,7 +33,7 @@ public class ARH_Move : MonoBehaviour
         {
 
             time += speed * Time.deltaTime;
-            this.transform.position = originalPosition + new Vector3(distance * test.Evaluate(Mathf.Clamp01(time)), 0, 0);
+            this.transform.position = originalPosition + new Vector3(distance * position.x.Evaluate(Mathf.Clamp01(time)), distance * position.y.Evaluate(Mathf.Clamp01(time)), distance * position.z.Evaluate(Mathf.Clamp01(time)));
 
             if (time >= 1)
             {
@@ -41,5 +42,14 @@ public class ARH_Move : MonoBehaviour
         }
     }
 
+
+}
+
+[System.Serializable]
+public class Position
+{
+    public AnimationCurve x = AnimationCurve.Constant(0,0,0);
+    public AnimationCurve y = AnimationCurve.Constant(0, 0, 0);
+    public AnimationCurve z = AnimationCurve.Constant(0, 0, 0);
 
 }
