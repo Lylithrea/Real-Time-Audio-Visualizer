@@ -9,13 +9,13 @@ namespace Tooling
     {
         public void OnApplicationQuit()
         {
+            //Reset delegate, or else it will throw exception
             Tooling.Base.onBeat = null;
-
         }
 
-        private static float averageVol = 5;
+        private static float averageBeatVol = 5;
         private static List<float> lowBeatsVol = new List<float>();
-        private static float m_timer;
+        private static float beatCooldown;
         private static float biasTimer = 0;
         private static float bpmTimer = 0;
 
@@ -24,55 +24,62 @@ namespace Tooling
         //implement minimum check timer (instead of every beat)
         //so that if its silent the bpm will be updated.
 
-        public void Beat()
+        private static void Beat()
         {
-            m_timer = 0;
-            BPMCounter();
+            beatCooldown = 0;
+            BPMCalculator();
             Base.onBeat();
         }
 
 
         public static void CheckBias()
         {
+            //Add the low fequency to the array
             lowBeatsVol.Insert(0, PitchCalculator.getLowPitch());
+
+            //if the array list is longer than the requested amount, it will delete the outdated data
             if (lowBeatsVol.Count > 75)
             {
-                for (int i = 0; i < 75; i++)
-                {
-                    averageVol += lowBeatsVol[i];
-                }
-                averageVol /= 75;
+                lowBeatsVol.RemoveRange(75, lowBeatsVol.Count- 76);
             }
-            else
+            //Calculate the average volume of all the stored low frequency data
+            for (int i = 0; i < lowBeatsVol.Count; i++)
             {
-                for (int i = 0; i < lowBeatsVol.Count; i++)
-                {
-                    averageVol += lowBeatsVol[i];
-                }
-                averageVol /= lowBeatsVol.Count;
+                averageBeatVol += lowBeatsVol[i];
             }
-            Base.bias = averageVol;
+            averageBeatVol /= lowBeatsVol.Count;
+
+            Base.bias = averageBeatVol;
         }
 
         public static void CheckBeat()
         {
+            //how often the bias updates
             if (biasTimer > 0.25f)
             {
                 biasTimer = 0;
                 CheckBias();
             }
-            if (PitchCalculator.getLowPitch() > averageVol)
+            //check if the currently low frequency is higher than the average frequency volume / bias
+            if (PitchCalculator.getLowPitch() > averageBeatVol)
             {
+                //if so insert the frequency again, but with lower impact
                 lowBeatsVol.Insert(0, (PitchCalculator.getLowPitch() / 10) * 9.75f);
-                if (m_timer > 0.15f)
-                    Base.onBeat();
+                if (beatCooldown > 0.15f)
+                    Beat();
             }
 
-            m_timer += Time.deltaTime;
+            //update timers
+            beatCooldown += Time.deltaTime;
             biasTimer += Time.deltaTime;
         }
 
-        public void BPMCounter()
+
+
+        /// <summary>
+        /// Calculate bpm based on time
+        /// </summary>
+        private static void BPMCalculator()
         {
             Base.bpm = 60 / bpmTimer;
             bpmTimer = 0;

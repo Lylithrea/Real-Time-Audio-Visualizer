@@ -19,7 +19,6 @@ namespace Tooling
 
             for (int i = 0; i < Tooling.Base.bands - 1; i++)
             {
-                //Debug.Log(i);
                 float average = 0;
 
                 float sampleCount = Mathf.Pow(2, i);
