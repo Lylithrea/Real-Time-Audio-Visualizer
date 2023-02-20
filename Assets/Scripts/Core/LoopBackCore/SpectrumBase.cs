@@ -177,6 +177,9 @@ namespace Assets.Scripts.Audio
                     case ScalingStrategy.Sqrt:
                         value0 = ((Math.Sqrt(fftBuffer[i])) * ScaleFactorSqr) * actualMaxValue;
                         break;
+                    case ScalingStrategy.Raw:
+                        value0 = fftBuffer[i];
+                        break;
                 }
 
                 bool recalc = true;

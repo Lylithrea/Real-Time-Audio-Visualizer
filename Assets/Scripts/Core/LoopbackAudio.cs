@@ -73,7 +73,7 @@ public class LoopbackAudio : MonoBehaviour
                 // Don't scale low band, it's too useful
                 if (i == 0)
                 {
-                    PostScaledSpectrumData[i] = SpectrumData[i];
+                    PostScaledSpectrumData[i] = SpectrumData[i] ;
                 }
                 else
                 {

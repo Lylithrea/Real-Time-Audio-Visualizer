@@ -34,11 +34,14 @@ public class AudioSampler : AudioSampleTooling
         //AudioListener.GetSpectrumData(audioSpectrum, 0, FFTWindow.Hamming);
         if (isUsingMicrophoneInput)
         {
+            //lasp
             Base.audioSpectrum = analyzer.spectrumArray.ToArray();
         }
         else
         {
+            //WASAPI
             Base.audioSpectrum = loopbackAudio.GetAllSpectrumData(strategy);
+            //AudioListener.GetSpectrumData(Base.audioSpectrum, 0, FFTWindow.Hamming);
         }
 
 

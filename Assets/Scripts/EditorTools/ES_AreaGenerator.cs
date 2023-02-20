@@ -8,6 +8,7 @@ public class ES_AreaGenerator : MonoBehaviour
     [SerializeField]private int row = 5;
     [SerializeField]private int col = 5;
     [SerializeField] private int distance = 1;
+    [SerializeField] private bool overWriteFrequencyBands = false;
 
     public void GenerateArea()
     {
@@ -21,9 +22,41 @@ public class ES_AreaGenerator : MonoBehaviour
                 {
                     GameObject newObj = Instantiate(objectToSpawn, parent.transform);
                     newObj.transform.position = new Vector3(i * distance, 0, j * distance);
+
+                    if (overWriteFrequencyBands)
+                    {
+                        setupFrequency(newObj, i, j);
+                    }
+
                 }
             }
         }
     }
+
+    private void setupFrequency(GameObject newObj, int currentRow, int currentCol)
+    {
+        if (newObj.GetComponent<FB_Size>() == null)
+        {
+            newObj.AddComponent<FB_Size>();
+        }
+
+        FB_Size frequencyScript = newObj.GetComponent<FB_Size>();
+
+        float bands = row;
+        float start = currentRow;
+        if (col > row)
+        {
+            bands = col;
+            start = currentCol;
+        }
+
+        float steps = (Tooling.Base.bands - 1) / bands;
+
+        frequencyScript.minBand = Mathf.FloorToInt(start * steps);
+        frequencyScript.maxBand = Mathf.FloorToInt(start * steps + steps);
+
+    }
+
+
 }
 
