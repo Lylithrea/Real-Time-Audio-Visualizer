@@ -14,7 +14,8 @@ namespace Tooling
 
         public static float[] audioSpectrum;
         public static float[] _freqBand;
-        public static float bpm;
+        public static float bpm = 60;
+        public static float bps = 60;
 
         public static int bands = 64;
         public static int samples = 2048;

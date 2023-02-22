@@ -31,7 +31,9 @@ namespace Tooling
                         //Debug.Log("Bigger than samples");
                         break;
                     }
-                    average += Tooling.Base.audioSpectrum[count] * ((count + 1) / 2);
+                    //average += Tooling.Base.audioSpectrum[count] * ((count + 1) / 2);
+                    float normalizer = Mathf.Pow(2, (-count / 6.3f));
+                    average += Tooling.Base.audioSpectrum[count] * ((count + 1) / 3);
                     count++;
                 }
                 //Debug.Log("Previous Hz: " + previousHz + " Current Hz: " + hz + " with count: " + count);
