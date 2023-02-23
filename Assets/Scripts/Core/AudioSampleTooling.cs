@@ -37,6 +37,7 @@ public class AudioSampleTooling : MonoBehaviour
         bpmTimer += Time.deltaTime;
         Tooling.FrequencyBander.FrequencyBands();
         Tooling.BeatDetector.CheckBeat();
+        Tooling.HiHatDetector.CheckHiHatHit();
     }
 
 

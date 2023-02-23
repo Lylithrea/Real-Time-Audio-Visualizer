@@ -10,6 +10,8 @@ namespace Tooling
     {
 
         private static float previousHz = 0;
+        private static float HzIntensity = 0;
+        private static List<float> HzIntensities = new List<float>();
 
 
         public static void FrequencyBands()
@@ -33,7 +35,7 @@ namespace Tooling
                     }
                     //average += Tooling.Base.audioSpectrum[count] * ((count + 1) / 2);
                     float normalizer = Mathf.Pow(2, (-count / 6.3f));
-                    average += Tooling.Base.audioSpectrum[count] * ((count + 1) / 3);
+                    average += Tooling.Base.audioSpectrum[count] * ((count + 4) / 4);
                     count++;
                 }
                 //Debug.Log("Previous Hz: " + previousHz + " Current Hz: " + hz + " with count: " + count);
@@ -51,8 +53,21 @@ namespace Tooling
                 {
                     average = 0;
                 }
-                float final = average * 15;
-
+                average *= 500;
+                HzIntensities.Insert(0, average);
+                //if the array list is longer than the requested amount, it will delete the outdated data
+                if (HzIntensities.Count > 512)
+                {
+                    HzIntensities.RemoveRange(512, HzIntensities.Count - 513);
+                }
+                for (int j = 0; j < HzIntensities.Count; j++)
+                {
+                    HzIntensity += HzIntensities[j];
+                }
+                HzIntensity /= HzIntensities.Count;
+                float final = average * Mathf.Clamp01(Mathf.Pow(average, 2) / (HzIntensity * 10));
+                //float final = average * (Mathf.Clamp01(Mathf.Pow(average, 2)) *( average / HzIntensity)) / (HzIntensity * 10);
+                //final = average;
                 Tooling.Base._freqBand[i] = final;
             }
 
