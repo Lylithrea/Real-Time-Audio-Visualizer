@@ -9,6 +9,7 @@ public class ES_AreaGenerator : MonoBehaviour
     [SerializeField]private int col = 5;
     [SerializeField] private int distance = 1;
     [SerializeField] private bool overWriteFrequencyBands = false;
+    [SerializeField] private bool influencesColour = false;
 
     public void GenerateArea()
     {
@@ -54,6 +55,17 @@ public class ES_AreaGenerator : MonoBehaviour
 
         frequencyScript.minBand = Mathf.FloorToInt(start * steps);
         frequencyScript.maxBand = Mathf.FloorToInt(start * steps + steps);
+
+        if (influencesColour)
+        {
+            if (newObj.GetComponent<FB_Colour>() == null)
+            {
+                newObj.AddComponent<FB_Colour>();
+            }
+
+            newObj.GetComponent<FB_Colour>().minBand = Mathf.FloorToInt(start * steps);
+            newObj.GetComponent<FB_Colour>().maxBand = Mathf.FloorToInt(start * steps + steps);
+        }
 
     }
 
