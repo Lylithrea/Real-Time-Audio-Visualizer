@@ -46,6 +46,42 @@ namespace Tooling
             }
         }
 
+        public static float getPitch(int pass)
+        {
+            switch (pass)
+            {
+                case 0:
+                    return getLowPitch();
+                case 1:
+                    return getMidPitch();
+                case 2:
+                    return getHighPitch();
+
+                case 3:
+                    return getLowLowPitch();
+                case 4:
+                    return getLowMidPitch();
+                case 5:
+                    return getLowHighPitch();
+
+                case 6:
+                    return getMidLowPitch();
+                case 7:
+                    return getMidMidPitch();
+                case 8:
+                    return getMidHighPitch();
+
+                case 9:
+                    return getHighLowPitch();
+                case 10:
+                    return getHighMidPitch();
+                case 11:
+                    return getHighHighPitch();
+
+                default:
+                    return getLowPitch();
+            }
+        }
 
         #region Pitches
 

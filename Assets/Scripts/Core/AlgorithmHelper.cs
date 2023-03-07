@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,10 +40,43 @@ namespace Tooling
             }
         }
 
+        public static void AddMethodToZone(Zones zone, System.Action method)
+        {
+            switch (zone)
+            {
+                case Zones.sub:
+                    break;
+                case Zones.bass:
+                    break;
+                case Zones.lowMid:
+                    break;
+                case Zones.mid:
+                    break;
+                case Zones.highmid:
+                    break;
+                case Zones.presence:
+                    break;
+                case Zones.brilliance:
+                    break;
+                default:
+                    Debug.LogWarning("Zone is not supported.");
+                    break;
+            }
+        }
+
 
     }
 
-
+    public enum Zones
+    {
+        sub,
+        bass,
+        lowMid,
+        mid,
+        highmid,
+        presence,
+        brilliance
+    }
 
     public enum Pass
     {

@@ -5,8 +5,7 @@ using Tooling;
 
 public class AudioSampleTooling : MonoBehaviour
 {
-    public delegate void OnBeat();
-    public static OnBeat onBeat;
+
 
 
     public static float spectrumValue;
@@ -23,20 +22,20 @@ public class AudioSampleTooling : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        onBeat = null;
+        Tooling.Base.onBeat = null;
+        Tooling.Base.onSub = null;
+        Tooling.Base.onBass = null;
+        Tooling.Base.onLowMid = null;
+
     }
 
 
-    public virtual void Start()
-    {
-        onBeat();
-    }
 
     public virtual void Update()
     {
         bpmTimer += Time.deltaTime;
         Tooling.FrequencyBander.FrequencyBands();
-        Tooling.BeatDetector.CheckBeat();
+        Tooling.HitDetector.CheckHits();
         Tooling.HiHatDetector.CheckHiHatHit();
     }
 

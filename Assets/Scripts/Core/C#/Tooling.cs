@@ -5,12 +5,22 @@ using UnityEngine;
 
 namespace Tooling
 {
+
     public class Base 
     {
 
         public delegate void OnBeat();
         public static OnBeat onBeat;
 
+
+        public delegate void OnSub();
+        public static OnSub onSub;
+
+        public delegate void OnBass();
+        public static OnBass onBass;
+
+        public delegate void OnLowMid();
+        public static OnLowMid onLowMid;
 
         public static float[] audioSpectrum;
         public static float[] _freqBand;
@@ -19,7 +29,7 @@ namespace Tooling
 
         public static int bands = 64;
         public static int samples = 2048;
-        public static float bias = 50;
+        public static float bias = 0;
 
 
 

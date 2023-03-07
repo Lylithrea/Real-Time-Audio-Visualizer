@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Tooling;
 using UnityEngine;
 
 public class ARH_ColourChange : MonoBehaviour
@@ -13,11 +14,35 @@ public class ARH_ColourChange : MonoBehaviour
     public string property;
     private Material mat;
 
+    public Tooling.Zones zone;
 
     // Start is called before the first frame update
     void Start()
     {
-        Tooling.Base.onBeat += onBeat;
+
+        switch (zone)
+        {
+            case Zones.sub:
+                Tooling.Base.onSub += onBeat;
+                break;
+            case Zones.bass:
+                Tooling.Base.onBass += onBeat;
+                break;
+            case Zones.lowMid:
+                Tooling.Base.onLowMid += onBeat;
+                break;
+            case Zones.mid:
+                break;
+            case Zones.highmid:
+                break;
+            case Zones.presence:
+                break;
+            case Zones.brilliance:
+                break;
+            default:
+                Debug.LogWarning("Zone is not supported.");
+                break;
+        }
         mat = GetComponent<MeshRenderer>().material;
     }
 

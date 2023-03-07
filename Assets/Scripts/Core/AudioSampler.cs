@@ -14,8 +14,10 @@ public class AudioSampler : AudioSampleTooling
     private Lasp.SpectrumAnalyzer analyzer;
 
 
+
+
     // Start is called before the first frame update
-    public override void Start()
+    public void Start()
     {
         Base.audioSpectrum = new float[Tooling.Base.samples];
         Base._freqBand = new float[Tooling.Base.bands];
