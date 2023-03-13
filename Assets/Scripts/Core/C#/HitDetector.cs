@@ -8,7 +8,10 @@ namespace Tooling
 
     public class HitDetector
     {
-
+        private static int beatDetectionMinFreq = 0;
+        private static int beatDetectionMaxFreq = 8;
+        private static int kickDetectionMinFreq = 18;
+        private static int kickDetectionMaxFreq = 22;
 
         private static float subBias = 0;
         private static float bassBias = 0;
@@ -39,11 +42,11 @@ namespace Tooling
             {
                 biasTimer = 0;
                 checkSubBias();
-                checkBassBias();
+                //checkBassBias();
                 checkMidLowBias();
             }
             checkSub();
-            checkBass();
+            //checkBass();
             checkMidLow();
 
             biasTimer += Time.deltaTime;
@@ -62,12 +65,15 @@ namespace Tooling
 
         #region midLow
 
+
+
+
+
         private static void checkMidLow()
         {
-
-            if (PitchCalculator.getLowHighPitch() > midLowBias)
+            if (PitchCalculator.getPitchRange(kickDetectionMinFreq, kickDetectionMaxFreq) > midLowBias)
             {
-                midLowBeatsVol.Insert(0, PitchCalculator.getLowHighPitch()  * getDeltaTime(midLowTimer));
+                midLowBeatsVol.Insert(0, PitchCalculator.getPitchRange(kickDetectionMinFreq, kickDetectionMaxFreq) * getDeltaTime(midLowTimer));
                 if (midLowTimer > 0.15f)
                 {
                     midLowHit();
@@ -87,7 +93,7 @@ namespace Tooling
         public static void checkMidLowBias()
         {
             //Add the low fequency to the array
-            midLowBeatsVol.Insert(0, PitchCalculator.getLowHighPitch());
+            midLowBeatsVol.Insert(0, PitchCalculator.getPitchRange(kickDetectionMinFreq, kickDetectionMaxFreq));
             midLowBias = 0;
             //if the array list is longer than the requested amount, it will delete the outdated data
             if (midLowBeatsVol.Count > 150)
@@ -104,6 +110,10 @@ namespace Tooling
 
             }
             midLowBias /= midLowBeatsVol.Count;
+            if (midLowBias < 0.25f)
+            {
+                midLowBias = 0.25f;
+            }
 
         }
 
@@ -162,9 +172,9 @@ namespace Tooling
         #region sub
         private static void checkSub()
         {
-            if (PitchCalculator.getLowLowPitch() > subBias)
+            if (PitchCalculator.getPitchRange(beatDetectionMinFreq, beatDetectionMaxFreq) > subBias)
             {
-                subBeatsVol.Insert(0, PitchCalculator.getLowLowPitch() * getDeltaTime(subTimer));
+                subBeatsVol.Insert(0, PitchCalculator.getPitchRange(beatDetectionMinFreq, beatDetectionMaxFreq) * getDeltaTime(subTimer));
 
                 if (subTimer > 0.15f)
                 {
@@ -185,7 +195,7 @@ namespace Tooling
         public static void checkSubBias()
         {
             //Add the low fequency to the array
-            subBeatsVol.Insert(0, PitchCalculator.getLowLowPitch());
+            subBeatsVol.Insert(0, PitchCalculator.getPitchRange(beatDetectionMinFreq, beatDetectionMaxFreq));
             subBias = 0;
             //if the array list is longer than the requested amount, it will delete the outdated data
             if (subBeatsVol.Count > 150)
@@ -202,6 +212,11 @@ namespace Tooling
 
             }
             subBias /= subBeatsVol.Count;
+
+            if (subBias < 0.1f)
+            {
+                subBias = 0.1f;
+            }
 
             if (!float.IsNaN(subBias) && subBias > 0)
             {

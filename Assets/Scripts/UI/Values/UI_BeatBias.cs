@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class UI_BeatBias : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-    [Range(0, 9)]
+    [Range(0, 64)]
     [SerializeField] private int minPass;
-    [Range(0, 9)]
+    [Range(0, 64)]
     [SerializeField] private int maxPass;
 
     private List<float> lowBeatsVol = new List<float>();
@@ -41,7 +41,7 @@ public class UI_BeatBias : MonoBehaviour
         float value = 0;
         for (int i = minPass; i <= maxPass; i++)
         {
-            value += Tooling.PitchCalculator.getPitch(3 + i);
+            value += Tooling.PitchCalculator.getPitchRange(minPass, maxPass);
         }
         value /= (maxPass - minPass);
         lowBeatsVol.Insert(0, value);

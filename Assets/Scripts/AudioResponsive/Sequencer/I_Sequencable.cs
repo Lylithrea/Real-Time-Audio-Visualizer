@@ -4,7 +4,11 @@ using UnityEngine;
 
 public interface I_Sequencable
 {
+    bool playFullSequence { get; set; }
+    bool isPlaying { get; set; }
+    bool doNotReset { get; set; }
 
-    void Trigger();
+    bool Trigger();
+    void ResetEffect();
 
 }

@@ -86,7 +86,7 @@ namespace Tooling
         #region Pitches
 
 
-        private static float getPitchRange(int start, int end, int max)
+        public static float getPitchRange(int start, int end, int max = 64)
         {
             float edge = Mathf.Floor(Base._freqBand.Length / max);
             float counter = 0;
